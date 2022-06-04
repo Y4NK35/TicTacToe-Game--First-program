@@ -1,4 +1,3 @@
-import org.w3c.dom.ls.LSOutput;
 import java.util.Random;
 import javax.swing.*;
 import java.awt.*;
@@ -6,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.RandomAccess;
 
 public class MyFrame extends JFrame implements MouseListener, ActionListener {
     JButton buttonNewGame;
@@ -15,8 +13,8 @@ public class MyFrame extends JFrame implements MouseListener, ActionListener {
     JPanel panelTop;
     JLabel whoIsMoveLabel;
     TicTacToeLabel label1, label2, label3, label4, label5, label6, label7, label8, label9;
-    ImageIcon kolko;
-    ImageIcon krzyzyk;
+    ImageIcon circleImg;
+    ImageIcon crossImg;
     Random  rnd = new Random();
     int counter, firstNumber;
     int[] winner = new int[9];
@@ -65,6 +63,7 @@ public class MyFrame extends JFrame implements MouseListener, ActionListener {
         label9 = new TicTacToeLabel();
         label9.addMouseListener(this);
 
+        // addComponentsToFrame
         panelMain.add(label1);
         panelMain.add(label2);
         panelMain.add(label3);
@@ -76,8 +75,8 @@ public class MyFrame extends JFrame implements MouseListener, ActionListener {
         panelMain.add(label9);
         panelTop.add(whoIsMoveLabel);
         panelTop.add(buttonNewGame);
-        kolko = new ImageIcon(getClass().getClassLoader().getResource("Kolko100.png"));
-        krzyzyk = new ImageIcon(getClass().getClassLoader().getResource("Krzyzyk100.png"));
+        circleImg = new ImageIcon(getClass().getClassLoader().getResource("Kolko100.png"));
+        crossImg = new ImageIcon(getClass().getClassLoader().getResource("Krzyzyk100.png"));
         whoMoveIs(counter);
         this.add(panelTop, BorderLayout.NORTH);
         this.add(buttonExit, BorderLayout.SOUTH);
@@ -91,66 +90,66 @@ public class MyFrame extends JFrame implements MouseListener, ActionListener {
 
     }
 
-    @Override
+    @Override// Mouse events
     public void mousePressed(MouseEvent e) {
         if (label1 == e.getSource() && label1.isOnOff()) {
-            winner[0] = label1.zmienObraz(counter);
+            winner[0] = label1.changeImage(counter);
             label1.setOff();
             counter++;
             theWinnerIs(winner);
             whoMoveIs(counter);
         }
         if (label2 == e.getSource() && label2.isOnOff()) {
-            winner[1] = label2.zmienObraz(counter);
+            winner[1] = label2.changeImage(counter);
             label2.setOff();
             counter++;
             theWinnerIs(winner);
             whoMoveIs(counter);
         }
         if (label3 == e.getSource() && label3.isOnOff()) {
-            winner[2] = label3.zmienObraz(counter);
+            winner[2] = label3.changeImage(counter);
             label3.setOff();
             counter++;
             theWinnerIs(winner);
             whoMoveIs(counter);
         }
         if (label4 == e.getSource() && label4.isOnOff()) {
-            winner[3] = label4.zmienObraz(counter);
+            winner[3] = label4.changeImage(counter);
             label4.setOff();
             counter++;
             theWinnerIs(winner);
             whoMoveIs(counter);
         }
         if (label5 == e.getSource() && label5.isOnOff()) {
-            winner[4] = label5.zmienObraz(counter);
+            winner[4] = label5.changeImage(counter);
             label5.setOff();
             counter++;
             theWinnerIs(winner);
             whoMoveIs(counter);
         }
         if (label6 == e.getSource() && label6.isOnOff()) {
-            winner[5] = label6.zmienObraz(counter);
+            winner[5] = label6.changeImage(counter);
             label6.setOff();
             counter++;
             theWinnerIs(winner);
             whoMoveIs(counter);
         }
         if (label7 == e.getSource() && label7.isOnOff()) {
-            winner[6] = label7.zmienObraz(counter);
+            winner[6] = label7.changeImage(counter);
             label7.setOff();
             counter++;
             theWinnerIs(winner);
             whoMoveIs(counter);
         }
         if (label8 == e.getSource() && label8.isOnOff()) {
-            winner[7] = label8.zmienObraz(counter);
+            winner[7] = label8.changeImage(counter);
             label8.setOff();
             counter++;
             theWinnerIs(winner);
             whoMoveIs(counter);
         }
         if (label9 == e.getSource() && label9.isOnOff()) {
-            winner[8] = label9.zmienObraz(counter);
+            winner[8] = label9.changeImage(counter);
             label9.setOff();
             counter++;
             theWinnerIs(winner);
@@ -188,11 +187,11 @@ public class MyFrame extends JFrame implements MouseListener, ActionListener {
                 if(winner[7] ==0) label8.setOff();
                 if(winner[8] ==0) label9.setOff();
             }
-            JOptionPane.showMessageDialog(null,"The winnner is Player1","END",JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null,"The winner is Player1","END",JOptionPane.PLAIN_MESSAGE);
         } else if (x[0] == 2 && x[1] == 2 && x[2] == 2 || x[3] == 2 && x[4] == 2 && x[5] == 2 || x[6] == 2 && x[7] == 2 && x[8] == 2 || x[0] == 2 && x[3] == 2 && x[6] == 2 || x[1] == 2 && x[4] == 2 && x[7] == 2
                 || x[2] == 2 && x[5] == 2 && x[8] == 2 || x[0] == 2 && x[4] == 2 && x[8] == 2 || x[2] == 2 && x[4] == 2 && x[6] == 2) {
             System.out.println(" The winner is Player2");
-            JOptionPane.showMessageDialog(null,"The winnner is Player2","END",JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null,"The winner is Player2","END",JOptionPane.PLAIN_MESSAGE);
             for(int i =0;i<9;i++){
                 if(winner[0] ==0) label1.setOff();
                 if(winner[1] ==0) label2.setOff();
@@ -234,10 +233,10 @@ public class MyFrame extends JFrame implements MouseListener, ActionListener {
     }
     public void whoMoveIs(int x){
         if(x%2==0){
-            whoIsMoveLabel.setIcon(kolko);
+            whoIsMoveLabel.setIcon(circleImg);
         }
         if(x%2==1) {
-            whoIsMoveLabel.setIcon(krzyzyk);
+            whoIsMoveLabel.setIcon(crossImg);
         }
     }
 }
